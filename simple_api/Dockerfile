@@ -1,16 +1,14 @@
 FROM python:2.7-stretch
-
-MAINTAINER Fabrice Gillain (fabricegillain54@gmail.com)
-
+#Maintainer of image
+LABEL maintainer="296389@supinfo.com"
+#Install of dependencies
 RUN apt-get update -y && apt-get install python-dev python3-dev libsasl2-dev python-dev libldap2-dev libssl-dev -y
-
 RUN pip install flask flask_httpauth flask_simpleldap python-dotenv
-
-#Pourquoi faire un copie avant d'avoir créé le volume ?
+#COPY SOURCE CODE IN THE IMAGE
 COPY student_age.py /
-
-VOLUME ["/data"]
-
+#CREATE DATA FOLDER
+VOLUME [ "/data" ]
+#EXPOSE PORT
 EXPOSE 5000
-
-CMD ["python", "./student_age.py"]
+#RUN CODE
+CMD [ "python", "./student_age.py" ]
